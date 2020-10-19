@@ -1,7 +1,7 @@
 from itertools import cycle
+from sys import argv
 
 ord_A = ord('A')
-
 
 def encrypt(text: str, key: str) -> str:
     '''Encrypt a string with given key in vigenere cipher.
@@ -40,7 +40,20 @@ def _transform(text: str, key: str, encode=True):
     return "".join(src)
 
 if __name__ == "__main__":
-    text = "dCode Vigenere automatically".upper()
-    # assert text == decrypt(encrypt(text, 'KEY'), 'KEY')
-    print(encrypt(text, "KEY"))
-    print(decrypt(encrypt(text, 'KEY'), 'KEY'))
+
+    if len(argv) != 4:
+        print('useage: python vigenere.py encode/decode text key')
+        exit(1)
+    cmd = argv[1]
+    src = argv[2]
+    key = argv[3]
+
+    if cmd == 'encode':
+        result =         encrypt(src, key)
+    elif cmd == 'decode':
+        result = decrypt(src, key)
+    else:
+        print(f'command "{cmd}" not recognized')
+        exit(1)
+    
+    print(result)
